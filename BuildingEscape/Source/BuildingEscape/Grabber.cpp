@@ -2,6 +2,8 @@
 
 #include "Grabber.h"
 #include "DrawDebugHelpers.h"
+#include "CollisionQueryParams.h"
+#include "GameFramework/Actor.h"
 
 #define OUT
 
@@ -43,14 +45,14 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// Log it out
 	/*UE_LOG(LogTemp, Warning, TEXT("Raycast Location: %s, Raycast Roation: %s"),	*PlayerViewPointLocation.ToString(),	*PlayerViewPointRotation.ToString());*/
 
-	FVector LineTradeEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
 
 
 		// Draw a red debug line
 		DrawDebugLine(
 			GetWorld(),
 			PlayerViewPointLocation,
-			LineTradeEnd,
+			LineTraceEnd,
 			FColor(255, 0, 0),
 			false,
 			0.f,
@@ -58,8 +60,25 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 			10.f
 		);
 
+	// Setup query parameters
+		FCollisionQueryParams TraceParameters(FName(TEXT("")), false, GetOwner());
+
 	// Ray-cast out to reach distance
+		FHitResult Hit;
+		GetWorld()->LineTraceSingleByObjectType(
+			OUT Hit,
+			PlayerViewPointLocation,
+			LineTraceEnd,
+			FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+			TraceParameters
+		);
 
 	// See what we hit
+		AActor* ActorHit = Hit.GetActor();
+
+		if (ActorHit)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Line trace hit: %s"), (*ActorHit->GetName()))
+		}
 }
 
