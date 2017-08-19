@@ -33,5 +33,6 @@ public:
 
 	// Ray-cast and group whats in reach
 	void Grab();
+	void Release();
 	
 };
