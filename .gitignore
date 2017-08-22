@@ -7,3 +7,6 @@ BuildingEscape/Content/StarterContent/
 
 *.VC.db
 BuildingEscape/Saved/EditorCooked/HTML5/BuildingEscape/AssetRegistry.bin
+
+*.VC.opendb
+*.sln
