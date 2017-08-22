@@ -38,5 +38,5 @@ private:
 	void FindPhysicsHandleComponent();
 	void SetupInputComponent();
 
-	const FHitResult GetFirstPhyscicsBodyInReach();
+	const FHitResult GetFirstPhysicsBodyInReach();
 };
