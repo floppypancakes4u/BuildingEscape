@@ -40,9 +40,7 @@ private:
 	float DoorCloseDelay = 0.4f;
 	float LastDoorOpenTime;
 
-	//UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens; // Remember pawn inherits from actor
 	AActor* Owner; // Owner that owns the door
 
-	
+	float GetTotalMassOfActorsOnPlate();
 };
